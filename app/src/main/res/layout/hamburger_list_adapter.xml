@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/photo"
+        android:layout_width="@dimen/adapter_photo_size"
+        android:layout_height="@dimen/adapter_photo_size"
+        android:layout_margin="@dimen/large_padding"
+        app:layout_constraintBottom_toBottomOf="@id/ingredients"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/name"
+        tools:ignore="ContentDescription"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/large_padding"
+        android:paddingTop="@dimen/small_padding"
+        android:textColor="@color/textColorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/ingredients"
+        app:layout_constraintStart_toEndOf="@id/photo"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="X-Egg Bacon" />
+
+    <TextView
+        android:id="@+id/ingredients"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/large_padding"
+        android:ellipsize="end"
+        android:paddingBottom="@dimen/small_padding"
+        android:textColor="@color/textColorSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/name"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        tools:text="Pão com gergelim, alface, ovo, bacon, hambúrguer de carne e queijo" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/large_padding"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="R$25,00" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/lighter_gray"
+        app:layout_constraintEnd_toEndOf="@id/ingredients"
+        app:layout_constraintStart_toStartOf="@id/ingredients"
+        app:layout_constraintTop_toBottomOf="@id/ingredients" />
+</android.support.constraint.ConstraintLayout>
