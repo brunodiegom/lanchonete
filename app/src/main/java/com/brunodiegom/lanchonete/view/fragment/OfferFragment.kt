@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.brunodiego.calculadoraanimal.component.Logger
 import com.brunodiegom.lanchonete.R
 import com.brunodiegom.lanchonete.model.Offers
 import com.brunodiegom.lanchonete.server.InitializerListener
@@ -18,7 +20,7 @@ class OfferFragment : Fragment(), InitializerListener {
 
     private val offers: Offers by inject()
 
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: OfferAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -29,6 +31,7 @@ class OfferFragment : Fragment(), InitializerListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "onViewCreated - isInitialized: ${offers.isInitialized}")
         if (offers.isInitialized) {
             setAdapter()
         }
@@ -45,5 +48,9 @@ class OfferFragment : Fragment(), InitializerListener {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+    }
+
+    companion object {
+        private val TAG = Logger.tag
     }
 }

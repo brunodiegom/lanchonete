@@ -1,4 +1,4 @@
-package com.brunodiegom.lanchonete.component
+package com.brunodiegom.lanchonete.tools
 
 import com.brunodiegom.lanchonete.model.Ingredients
 import com.brunodiegom.lanchonete.model.Offers
