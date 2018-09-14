@@ -41,7 +41,7 @@ class MenuFragment : Fragment(), RequestListener, RecyclerViewClickListener {
 
     private fun requestDataSet() = DataProvider(this).request(context, Hamburgers.HAMBURGER_API)
 
-    override fun onRequestResult(data: JSONArray) {
+    override fun onRequestResult(data: JSONArray, url: String) {
         Log.d(TAG, "onRequestResult: ${data.length()}")
         viewManager = LinearLayoutManager(context)
         viewAdapter = HamburgerAdapter(Hamburgers(data).dataSet, ingredients)

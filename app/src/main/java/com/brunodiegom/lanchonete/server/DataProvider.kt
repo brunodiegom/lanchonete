@@ -15,7 +15,7 @@ class DataProvider(private var requestListener: RequestListener? = null) {
         val stringRequest = JsonArrayRequest(Request.Method.GET, url, null,
                 Response.Listener { response ->
                     Log.d(TAG, "Response: $response")
-                    requestListener?.onRequestResult(response)
+                    requestListener?.onRequestResult(response, url)
                 },
                 Response.ErrorListener { Log.e(TAG, "Error on request") })
         context?.let { RequestController.getInstance(it).addToRequestQueue(stringRequest) }
@@ -34,6 +34,6 @@ class DataProvider(private var requestListener: RequestListener? = null) {
 
     companion object {
         private val TAG = Logger.tag
-        const val SERVER_ADDRESS = "http://10.0.2.2:8080/api/"
+        const val SERVER_ADDRESS = "http://localhost:8080/api/"
     }
 }

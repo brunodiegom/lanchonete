@@ -11,7 +11,7 @@ class Offers(context: Context) : RequestListener {
 
     private var offersMap: MutableMap<Int, OfferData> = HashMap()
 
-    private lateinit var initializerListener: InitializerListener
+    private var initializerListener: InitializerListener? = null
 
     var isInitialized = false
 
@@ -25,11 +25,33 @@ class Offers(context: Context) : RequestListener {
         initializerListener = listener
     }
 
-    override fun onRequestResult(data: JSONArray) {
+    override fun onRequestResult(data: JSONArray, url: String) {
         parseData(data)
     }
 
     override fun onPutResult(data: JSONObject) {}
+
+    fun isLightOffer(ingredientsList: ArrayList<Int>): Boolean {
+        var hasLettuce = false
+        var hasBacon = false
+        for (ingredient in ingredientsList) {
+            if (ingredient == 1) {
+                hasLettuce = true
+            } else if (ingredient == 2) {
+                hasBacon = true
+            }
+        }
+        return hasLettuce && !hasBacon
+    }
+
+    fun treeToTwoOffer(ingredientsList: ArrayList<Int>, ingredients: Ingredients, id: Int): Double {
+        var count = 0
+        for (ingredient in ingredientsList) {
+            if (ingredient == id) count++
+        }
+        val discount = count / 3
+        return ingredients.calculatePrice(id, discount)
+    }
 
     private fun parseData(data: JSONArray) {
         for (index in 0 until data.length()) {
@@ -40,7 +62,7 @@ class Offers(context: Context) : RequestListener {
             offersMap[id] = OfferData(id, name, description)
         }
         isInitialized = true
-        initializerListener.onInitializeFinish()
+        initializerListener?.onInitializeFinish()
     }
 
     companion object {

@@ -60,7 +60,7 @@ class Ingredients(context: Context) : RequestListener {
         initializerListener = listener
     }
 
-    override fun onRequestResult(data: JSONArray) {
+    override fun onRequestResult(data: JSONArray, url: String) {
         parseData(data)
     }
 
@@ -101,7 +101,7 @@ class Ingredients(context: Context) : RequestListener {
      */
     fun parseIngredientsList(idList: ArrayList<Int>): String {
         val result = arrayListOf<String>()
-        for (id in idList) {
+        for (id in idList.distinct()) {
             getIngredient(id)?.let { result.add(it.name) }
         }
         return result.joinToString(separator = " • ")

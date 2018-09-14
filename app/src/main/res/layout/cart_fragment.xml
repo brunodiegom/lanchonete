@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/cart_recycler_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/large_padding"
+        app:layout_constraintBottom_toTopOf="@id/total"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total"
+        app:layout_constraintBaseline_toBaselineOf="@+id/total_value"
+        app:layout_constraintStart_toStartOf="@id/discount" />
+
+    <TextView
+        android:id="@+id/discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/discount"
+        app:layout_constraintBaseline_toBaselineOf="@+id/discount_value"
+        app:layout_constraintStart_toStartOf="@id/total_to_pay" />
+
+    <TextView
+        android:id="@+id/total_to_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total_to_pay"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/total_to_pay_value"
+        app:layout_constraintStart_toStartOf="@id/finish_button" />
+
+    <TextView
+        android:id="@+id/total_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_padding"
+        app:layout_constraintBottom_toTopOf="@id/discount_value"
+        app:layout_constraintEnd_toEndOf="@id/discount_value"
+        tools:text="R$25,00" />
+
+    <TextView
+        android:id="@+id/discount_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_padding"
+        app:layout_constraintBottom_toTopOf="@id/total_to_pay_value"
+        app:layout_constraintEnd_toEndOf="@id/total_to_pay_value"
+        tools:text="-R$10,00" />
+
+    <TextView
+        android:id="@+id/total_to_pay_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/large_padding"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/finish_button"
+        app:layout_constraintEnd_toEndOf="@id/finish_button"
+        tools:text="R$15,00" />
+
+    <Button
+        android:id="@+id/finish_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/clickable_size"
+        android:layout_margin="@dimen/large_padding"
+        android:background="@drawable/button_background"
+        android:paddingEnd="@dimen/large_padding"
+        android:paddingStart="@dimen/large_padding"
+        android:text="@string/finish"
+        android:textColor="@color/textColorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

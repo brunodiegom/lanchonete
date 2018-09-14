@@ -23,7 +23,7 @@ import org.koin.android.ext.android.inject
  * Activity that handles hamburger customization.
  */
 class SelectorActivity : AppCompatActivity(), SelectorAdapterChangeListener, RequestListener {
-    override fun onRequestResult(data: JSONArray) {}
+    override fun onRequestResult(data: JSONArray, url: String) {}
 
     override fun onPutResult(data: JSONObject) {
         finish()
@@ -59,8 +59,9 @@ class SelectorActivity : AppCompatActivity(), SelectorAdapterChangeListener, Req
         val list = arrayListOf<Int>()
         for (index in ingredientsMap.keys) {
             ingredientsMap[index]?.let { if (it != 0) {
-                list.add(index)
-                list.add(it)
+                for (i in 0 until it) {
+                    list.add(index)
+                }
             } }
         }
         Log.d(TAG, "getExtraIngredient: $list")
