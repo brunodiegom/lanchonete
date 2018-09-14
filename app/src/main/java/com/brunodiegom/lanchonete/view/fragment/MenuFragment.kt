@@ -11,15 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.brunodiego.calculadoraanimal.component.Logger
 import com.brunodiegom.lanchonete.R
-import com.brunodiegom.lanchonete.tools.RecyclerViewClickListener
 import com.brunodiegom.lanchonete.model.Hamburgers
 import com.brunodiegom.lanchonete.model.Ingredients
 import com.brunodiegom.lanchonete.server.DataProvider
 import com.brunodiegom.lanchonete.server.RequestListener
+import com.brunodiegom.lanchonete.tools.RecyclerViewClickListener
 import com.brunodiegom.lanchonete.view.activity.SelectorActivity
 import com.brunodiegom.lanchonete.view.adapter.HamburgerAdapter
 import kotlinx.android.synthetic.main.menu_fragment.*
 import org.json.JSONArray
+import org.json.JSONObject
 import org.koin.android.ext.android.inject
 
 class MenuFragment : Fragment(), RequestListener, RecyclerViewClickListener {
@@ -50,6 +51,8 @@ class MenuFragment : Fragment(), RequestListener, RecyclerViewClickListener {
         }
         viewAdapter.setRecyclerViewClickListener(this)
     }
+
+    override fun onPutResult(data: JSONObject) {}
 
     override fun onClickListener(view: View, position: Int) {
         val intent = Intent(context, SelectorActivity::class.java)

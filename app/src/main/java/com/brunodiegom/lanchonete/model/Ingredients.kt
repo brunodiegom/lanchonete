@@ -64,6 +64,8 @@ class Ingredients(context: Context) : RequestListener {
         parseData(data)
     }
 
+    override fun onPutResult(data: JSONObject) {}
+
     private fun parseData(data: JSONArray) {
         for (index in 0 until data.length()) {
             val value = data.get(index) as JSONObject

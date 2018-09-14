@@ -15,10 +15,11 @@ class Hamburgers(inputData: JSONArray) {
     private fun parseData(inputData: JSONArray) {
         for (index in 0 until inputData.length()) {
             val value = inputData.get(index) as JSONObject
+            val id = value.getInt("id")
             val name = value.getString("name")
             val ingredients = parseIngredients(value.getJSONArray("ingredients"))
             val image = value.getString("image")
-            dataSet.add(HamburgerData(0, name, ingredients, image.replaceFirst("https", "http")))
+            dataSet.add(HamburgerData(id, name, ingredients, image.replaceFirst("https", "http")))
         }
     }
 

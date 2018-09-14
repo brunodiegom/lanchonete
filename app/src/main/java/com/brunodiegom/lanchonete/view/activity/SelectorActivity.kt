@@ -9,16 +9,25 @@ import com.brunodiego.calculadoraanimal.component.Logger
 import com.brunodiegom.lanchonete.R
 import com.brunodiegom.lanchonete.model.HamburgerData
 import com.brunodiegom.lanchonete.model.Ingredients
+import com.brunodiegom.lanchonete.server.DataProvider
 import com.brunodiegom.lanchonete.server.RequestController
+import com.brunodiegom.lanchonete.server.RequestListener
 import com.brunodiegom.lanchonete.view.adapter.SelectorAdapter
 import com.brunodiegom.lanchonete.view.component.SelectorAdapterChangeListener
 import kotlinx.android.synthetic.main.selector_activity.*
+import org.json.JSONArray
+import org.json.JSONObject
 import org.koin.android.ext.android.inject
 
 /**
  * Activity that handles hamburger customization.
  */
-class SelectorActivity : AppCompatActivity(), SelectorAdapterChangeListener {
+class SelectorActivity : AppCompatActivity(), SelectorAdapterChangeListener, RequestListener {
+    override fun onRequestResult(data: JSONArray) {}
+
+    override fun onPutResult(data: JSONObject) {
+        finish()
+    }
 
     private val ingredients: Ingredients by inject()
 
@@ -30,14 +39,35 @@ class SelectorActivity : AppCompatActivity(), SelectorAdapterChangeListener {
     private var finalPrice = 0.0
     private var basePrice = 0.0
 
+    private lateinit var data: HamburgerData
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selector_activity)
         val bundle = this.intent.extras
-        setData(bundle?.getSerializable("item") as HamburgerData)
+        data = bundle?.getSerializable("item") as HamburgerData
+        setData()
+        add_button.setOnClickListener {
+            val jsonObject = JSONObject()
+            jsonObject.put("id_sandwich", data.id)
+            jsonObject.put("extras", getExtraIngredient())
+            DataProvider(this).put(this, "$ORDER_API${data.id}", jsonObject)
+        }
     }
 
-    private fun setData(data: HamburgerData) {
+    private fun getExtraIngredient(): ArrayList<Int>{
+        val list = arrayListOf<Int>()
+        for (index in ingredientsMap.keys) {
+            ingredientsMap[index]?.let { if (it != 0) {
+                list.add(index)
+                list.add(it)
+            } }
+        }
+        Log.d(TAG, "getExtraIngredient: $list")
+        return list
+    }
+
+    private fun setData() {
         basePrice = ingredients.calculateFullPrice(data.ingredients)
         setName(data.name)
         setPhoto(data.imageLink)
@@ -94,5 +124,6 @@ class SelectorActivity : AppCompatActivity(), SelectorAdapterChangeListener {
     companion object {
         const val PRICE_FORMAT = "R$%.2f"
         private val TAG = Logger.tag
+        private const val ORDER_API = DataProvider.SERVER_ADDRESS + "pedido/"
     }
 }
